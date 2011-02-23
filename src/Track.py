@@ -9,16 +9,32 @@ class Track(dict):
 #    logging.basicConfig(level=logging.DEBUG)
 
 
-    def __init__(self, mp3, filesize):
-        self.track = mp3.tags["TRCK"].text
+    def __init__(self, audiofile, filesize):
+        print audiofile.pprint()
+        try:
+            '''MP3'''
+            self.track = audiofile.tags["TRCK"].text
+            self.title = audiofile.tags["TIT2"]
+            self.album = audiofile["TALB"].text
+            self.artist = audiofile["TPE1"].text
+            self.date = audiofile.tags["TDRC"]
+        except:
+            '''FLAC'''
+            self.track = audiofile.tags["tracknumber"]
+            self.title = audiofile.tags["title"]
+            self.artist = audiofile.tags["artist"]
+            self.album = audiofile.tags["album"]
+            self.date = audiofile.tags["date"]
+
         self.track = self.tracknumber(self.track[0])
-        self.title = mp3.tags["TIT2"]
-        self.length = int(mp3.info.length)
-        self.bitrate = mp3.info.bitrate
-        self.album = mp3["TALB"].text
-        self.artist = mp3["TPE1"].text
-        self.date = mp3.tags["TDRC"]
+        self.length = int(audiofile.info.length)
         self.filesize = filesize
+        try:
+            self.bitrate = audiofile.info.bitrate
+        except:
+            self.bitrate = 0
+
+
 
 
     def __setattr__(self, track, value):

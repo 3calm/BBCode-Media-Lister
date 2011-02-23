@@ -27,7 +27,9 @@ class Lister():
         else:
             self.fpath = path
         self.types = {
-            'mp3':'.mp3'
+            'mp3' : '.mp3',
+            'FLAC' : '.flac',
+
         }
         if type != None:
             self.type = (type, self.types[type])
@@ -67,9 +69,9 @@ class Lister():
         for ffile in files:
             if self.type != None:
                 test = os.path.splitext(ffile)[1].lower() == self.type[1]
+                print test
             if test != True:
                 files.remove(ffile)
-
             else:
                 break
         return files
@@ -106,13 +108,14 @@ class Lister():
 
     def chooseprocessor(self,fpath, size):
         '''choose the class to use'''
-
+        print os.path.splitext(fpath)[1].lower()
         if os.path.splitext(fpath)[1].lower() == '.mp3':
-            
+            print 'mp3 found'
             self.format = "MP3"
             audioproc = MP3(fpath)
-        elif os.path.splitext(fpath)[1].lower() == '.fla':
-            
+        elif os.path.splitext(fpath)[1].lower() == '.flac':
+            print 'FLAC found'
+            self.format = "FLAC"
             audioproc = FLAC(fpath)
         else:
 

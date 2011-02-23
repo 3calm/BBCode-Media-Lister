@@ -29,7 +29,6 @@ ltest = lister.walktree(lister.fpath)
 if options.write:
     f = open(options.write, 'w')
     out = lister.printtemplate(lister.albums)
-    print out
     f.write(out)
     f.close
 else:
