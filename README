@@ -1,3 +1,8 @@
 The goal of this project is to build a comprehensive media scanner that's main goal is to generate BBCode output such
 as track listings, or screenshots of video clips.  Allowing artists using electronic distribution, to quickly
 generate an informative online post in the most widely used forum mark-up,promoting their creative works.
+
+This application requires that you have the following libraries installed.
+
+mutagen
+cHeetah
