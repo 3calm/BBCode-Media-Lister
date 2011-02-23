@@ -10,10 +10,10 @@ class Track(dict):
         try:
             '''MP3'''
             self.track = audiofile.tags["TRCK"].text[0]
-            self.title = audiofile.tags["TIT2"]
-            self.album = audiofile["TALB"].text
-            self.artist = audiofile["TPE1"].text
-            self.date = audiofile.tags["TDRC"]
+            self.title = audiofile.tags["TIT2"][0]
+            self.album = audiofile["TALB"].text[0]
+            self.artist = audiofile["TPE1"].text[0]
+            self.date = audiofile.tags["TDRC"][0]
         except:
             '''FLAC'''
             self.track = audiofile.tags["tracknumber"][0]

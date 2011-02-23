@@ -77,15 +77,15 @@ class Lister():
     def getalbum(self, track):
         '''obtain the album'''
         for album in self.albums:
-            if album.title == track.album[0]:
+            if album.title == track.album:
                 return album
         '''create the album'''
-        album = Album.Album(track.album[0], track.artist[0], track.date[0], self.format)
+        album = Album.Album(track.album, track.artist, track.date, self.format)
         '''add te track to the album'''
         self.albums.append(album)
         '''obtain the album'''
         for album in self.albums:
-            if album.title == track.album[0]:
+            if album.title == track.album:
                 return album
         pass
          
