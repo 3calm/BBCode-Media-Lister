@@ -5,36 +5,30 @@ MediaLister
 class Track(dict):
     """represents a track in an album"""
 
-    '''Log everything, and send it to stderr.'''
-#    logging.basicConfig(level=logging.DEBUG)
-
-
     def __init__(self, audiofile, filesize):
-        print audiofile.pprint()
+        
         try:
             '''MP3'''
-            self.track = audiofile.tags["TRCK"].text
+            self.track = audiofile.tags["TRCK"].text[0]
             self.title = audiofile.tags["TIT2"]
             self.album = audiofile["TALB"].text
             self.artist = audiofile["TPE1"].text
             self.date = audiofile.tags["TDRC"]
         except:
             '''FLAC'''
-            self.track = audiofile.tags["tracknumber"]
-            self.title = audiofile.tags["title"]
-            self.artist = audiofile.tags["artist"]
-            self.album = audiofile.tags["album"]
-            self.date = audiofile.tags["date"]
+            self.track = audiofile.tags["tracknumber"][0]
+            self.title = audiofile.tags["title"][0]
+            self.artist = audiofile.tags["artist"][0]
+            self.album = audiofile.tags["album"][0]
+            self.date = audiofile.tags["date"][0]
 
-        self.track = self.tracknumber(self.track[0])
+        self.track = self.tracknumber(self.track)
         self.length = int(audiofile.info.length)
         self.filesize = filesize
         try:
             self.bitrate = audiofile.info.bitrate
         except:
             self.bitrate = 0
-
-
 
 
     def __setattr__(self, track, value):
@@ -48,7 +42,6 @@ class Track(dict):
             return self.track
         except:
             raise AttributeError
-
 
 
     def __setattr__(self, title, value):
@@ -104,17 +97,13 @@ class Track(dict):
 
     def tracknumber(self, track):
         '''Flip the track to int for sorting'''
-
         try:
             if track.find("/") != -1:
-                
                 return str(track.split("/")[0])
         except:
-            raise Exception
-        
-        if int(track[0]) != int(0) and track > 9:
+            pass
+        if len(track) < 2:
             track = str(0) + str(track)
-            
         return track
 
 

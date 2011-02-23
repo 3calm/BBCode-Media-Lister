@@ -21,16 +21,15 @@ class Lister():
         self.debug = debug
         self.opath = outputfile
         self.format = ""
-
-        if path == "":
-            self.fpath = os.getcwd()
-        else:
-            self.fpath = path
         self.types = {
             'mp3' : '.mp3',
             'FLAC' : '.flac',
 
         }
+        if path == "":
+            self.fpath = os.getcwd()
+        else:
+            self.fpath = path
         if type != None:
             self.type = (type, self.types[type])
         if self.debug == True:
@@ -39,7 +38,6 @@ class Lister():
 
     def walktree(self, fpath):
         '''Walk the directory tree recursively'''
-
         ''' Go through the directorie '''
         for (wpath, dirs, files) in os.walk(self.fpath):
             totalnumfiles = len(files)
@@ -69,7 +67,6 @@ class Lister():
         for ffile in files:
             if self.type != None:
                 test = os.path.splitext(ffile)[1].lower() == self.type[1]
-                print test
             if test != True:
                 files.remove(ffile)
             else:
@@ -96,7 +93,6 @@ class Lister():
     def addalbum(self,album):
         try:
             i = self.albums.index(album.title)
-
             return True
         except ValueError:
             self.albums.append(album)
@@ -108,17 +104,14 @@ class Lister():
 
     def chooseprocessor(self,fpath, size):
         '''choose the class to use'''
-        print os.path.splitext(fpath)[1].lower()
+        
         if os.path.splitext(fpath)[1].lower() == '.mp3':
-            print 'mp3 found'
             self.format = "MP3"
             audioproc = MP3(fpath)
         elif os.path.splitext(fpath)[1].lower() == '.flac':
-            print 'FLAC found'
             self.format = "FLAC"
             audioproc = FLAC(fpath)
         else:
-
             return False
         otrack = Track.Track(audioproc, size)
         return otrack

@@ -6,8 +6,6 @@ import logging
 
 class Album():
     '''represents an album'''
-    
-#    logging.basicConfig(level=logging.DEBUG)
 
     def __init__(self, title, artist, date, format):
         self.title = title
@@ -72,6 +70,7 @@ class Album():
         except:
             raise AttributeError
 
+
     def addtrack(self, track):
         '''Add a track'''
         self.tracks.append(track)
@@ -90,15 +89,12 @@ class Album():
         '''Calculate the length of the album'''
         self.length = 0
         for track in self.tracks:
-
             self.length = self.length + track.length
-            
         return self.GetInHMS(self.length)
 
 
     def calcfilesize(self):
         '''Calculate the length of the album'''
-
         for track in self.tracks:
             self.filesize = self.filesize + track.filesize
         return self.filesize
