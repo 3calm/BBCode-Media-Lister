@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 from optparse import OptionParser
 import Lister
 
@@ -25,5 +26,12 @@ if options.write:
 
 lister = Lister.Lister(debug=options.debug, type=options.type, path=options.path, outputfile=options.write)
 ltest = lister.walktree(lister.fpath)
-#print lister.albums[0].tracks
-lister.printtemplate(lister.albums)
+if options.write:
+    f = open(options.write, 'w')
+    out = lister.printtemplate(lister.albums)
+    print out
+    f.write(out)
+    f.close
+else:
+#    lister.printtemplate(lister.albums)
+    pass

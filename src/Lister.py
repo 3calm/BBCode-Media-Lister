@@ -12,9 +12,6 @@ import Track, Album
 class Lister():
     '''Class for printing track lists'''
 
-    '''Log everything, and send it to stderr.'''
-#    logging.basicConfig(level=logging.DEBUG)
-
     def __init__(self, debug=False, type=None, path=None, outputfile=None):
         '''Initialize stuff we need'''
         self.albums = []
@@ -34,7 +31,9 @@ class Lister():
         }
         if type != None:
             self.type = (type, self.types[type])
-
+        if self.debug == True:
+            '''Log everything, and send it to stderr.'''
+            logging.basicConfig(level=logging.DEBUG)
 
     def walktree(self, fpath):
         '''Walk the directory tree recursively'''
@@ -136,4 +135,4 @@ class Lister():
             'albums' : self.albums,
             }
         logging.debug('! vd: %s' % str(vd))
-        t.printfilledtemplate(vd)
+        return t.printfilledtemplate(vd)

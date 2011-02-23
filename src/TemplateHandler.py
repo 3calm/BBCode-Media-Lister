@@ -38,4 +38,6 @@ class TemplateHandler():
     def printfilledtemplate(self, variabledictionary):
         nameSpace = variabledictionary
         template = Template(self.ctemplate, searchList=[nameSpace])
-        print template
+        print 'returning output'
+        print type(template.__str__())
+        return template.__str__()
