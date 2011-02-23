@@ -15,9 +15,6 @@ class Lister():
     '''Log everything, and send it to stderr.'''
 #    logging.basicConfig(level=logging.DEBUG)
 
-
-
-
     def __init__(self, debug=False, type=None, path=None, outputfile=None):
         '''Initialize stuff we need'''
         self.albums = []
@@ -26,6 +23,7 @@ class Lister():
         self.type = None
         self.debug = debug
         self.opath = outputfile
+        self.format = ""
 
         if path == "":
             self.fpath = os.getcwd()
@@ -58,17 +56,9 @@ class Lister():
                         track = self.chooseprocessor(fpath, size)
                         if track != False:
                             '''get the album'''
-
                             album = self.getalbum(track)
-
-                            
-
                             '''add the track to the album'''
-
                             album.tracks.append(track)
-
-                            album = 0
-#
                         else:
                             return False
 
@@ -77,10 +67,8 @@ class Lister():
         '''remove files that dont mat te specified type'''
         for ffile in files:
             if self.type != None:
-
                 test = os.path.splitext(ffile)[1].lower() == self.type[1]
             if test != True:
-
                 files.remove(ffile)
 
             else:
@@ -94,7 +82,7 @@ class Lister():
             if album.title == track.album[0]:
                 return album
         '''create the album'''
-        album = Album.Album(track.album[0], track.artist[0], track.date[0])
+        album = Album.Album(track.album[0], track.artist[0], track.date[0], self.format)
         '''add te track to the album'''
         self.albums.append(album)
         '''obtain the album'''
@@ -121,7 +109,8 @@ class Lister():
         '''choose the class to use'''
 
         if os.path.splitext(fpath)[1].lower() == '.mp3':
-
+            
+            self.format = "MP3"
             audioproc = MP3(fpath)
         elif os.path.splitext(fpath)[1].lower() == '.fla':
             
@@ -142,7 +131,7 @@ class Lister():
         from TemplateHandler import TemplateHandler
         t = TemplateHandler()
         t.loadtemplate()
-        print self.albums[0].gettracks()
+        
         vd = {
             'albums' : self.albums,
             }

@@ -82,31 +82,23 @@ class Track(dict):
             raise AttributeError
 
 
-    def __getattr__(self, dictrep):
-        """dictrep: get a dictionary representation"""
-        try:
-            return {'track': self.track,
-                    'title': self.title,
-                    'artist': self.artist,
-                    'length': self.length,
-                    'filesize': self.filesize
-                    }
-        except:
-            raise AttributeError
-
     def getkbps(self):
         return int(self.bitrate/1024)
+
 
     def tracknumber(self, track):
         '''Flip the track to int for sorting'''
 
         try:
             if track.find("/") != -1:
+                
                 return str(track.split("/")[0])
         except:
             raise Exception
-        if str(track)[0] != 0:
+        
+        if int(track[0]) != int(0) and track > 9:
             track = str(0) + str(track)
+            
         return track
 
 

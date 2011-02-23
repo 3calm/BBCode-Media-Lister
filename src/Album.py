@@ -3,14 +3,13 @@ MediaLister
 '''
 
 import logging
-#import
 
 class Album():
     '''represents an album'''
     
 #    logging.basicConfig(level=logging.DEBUG)
 
-    def __init__(self, title, artist, date):
+    def __init__(self, title, artist, date, format):
         self.title = title
         self.artist = artist
         self.date = date
@@ -18,6 +17,7 @@ class Album():
         self.bitrate = 0
         self.length = 0
         self.filesize = 0
+        self.format = format
 
     def __setattr__(self, title, value):
         '''title: the title of the album'''
@@ -77,27 +77,12 @@ class Album():
         self.tracks.append(track)
 
 
-#    def getdict(self):
-#
-#        rdict = {
-#
-#                'title': 'ass ' + self.title,
-#                'artist': 'ass '+self.artist,
-#                'date' : self.date,
-#                'bitrate' : self.calcbitrate(),
-#                'size' : int(self.calcfilesize()),
-#                'albumlength' : self.GetInHMS(self.calclength())
-#
-#                }
-#        logging.debug('rdict: %s' % str(rdict))
-#        return rdict
-
     def calcbitrate(self):
         '''Calculate the bitrate of the album'''
         tmp = []
         for track in self.tracks:
             tmp.append(track.bitrate)
-            self.bitrate = str(int((sum(tmp) / len(tmp)) / 1028))
+            self.bitrate = str(int((sum(tmp) / len(tmp)) / 1024))
         return self.bitrate
 
 
@@ -105,8 +90,10 @@ class Album():
         '''Calculate the length of the album'''
         self.length = 0
         for track in self.tracks:
+
             self.length = self.length + track.length
-        return self.length
+            
+        return self.GetInHMS(self.length)
 
 
     def calcfilesize(self):
@@ -114,7 +101,7 @@ class Album():
 
         for track in self.tracks:
             self.filesize = self.filesize + track.filesize
-        return self.filesize / 1024 / 1024
+        return self.filesize
 
 
     def tracksindicts(self):
@@ -133,10 +120,11 @@ class Album():
         'convert secs to mins and secs'
         seconds = int(seconds)
         hours = seconds / 3600
+        bminutes = seconds / 60
         seconds -= 3600*hours
         minutes = seconds / 60
         seconds -= 60*minutes
-        return '%02s' % ( seconds)
+        return '%02s:%02s' % (bminutes, seconds)
 
 
     def __str__(self):

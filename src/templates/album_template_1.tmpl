@@ -1,10 +1,11 @@
 #for $album in $albums
 [title]
+$album.format
 Artist: $album.artist
 Album: $album.title
 Date: ($album.date)
 [/title]
-    Average Bitrate: $album.bitrate kbps - Length: $album.length - Size: $album.filesize M
+   [size=2]Average Bitrate: $album.calcbitrate() kbps - Length: $album.calclength() - Size: $album.calcfilesize() M[/size]
 [bar=green][center][title]Tracks on $album.title [/title][/center][/bar]
     [list]
     #for $track in $album.gettracks()
