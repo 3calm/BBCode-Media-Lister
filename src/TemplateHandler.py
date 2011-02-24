@@ -7,16 +7,16 @@ from Cheetah.Template import Template
 
 class TemplateHandler():
 
-    cpath=os.getcwd()
-    tfile = 'templates/album_template_1.tmpl'
-    tpath = None
-    ctemplate = ""
+
 
     
-    def __init__(self):
+    def __init__(self, afile, vfile):
+        self.cpath = os.getcwd()
+        self.apath = os.path.join(self.cpath, 'templates/'+afile)
+        self.vpath = os.path.join(self.cpath, 'templates/'+vfile)
         logging.debug('+ TemplateHandler class loaded.')
-        self.tpath = self.getpath(self.cpath, self.tfile)
-        logging.debug('+ Final template path: %s' % self.tpath)
+#        self.tpath = self.getpath(self.cpath, self.tfile)
+#        logging.debug('+ Final template path: %s' % self.tpath)
 
 
     def getpath(self, fpath, file):
@@ -27,12 +27,16 @@ class TemplateHandler():
 
     def loadtemplate(self):
         logging.debug('+ loadtemplate() called.')
-        t = open(self.tpath, 'r')
-        ct = t.read()
-        self.ctemplate = ct
+        at = open(self.apath, 'r')
+        at = at.read()
+        vt = open(self.vpath, 'r')
+        vt = vt.read()
+        self.atemplate = at
+        self.vtemplate = vt
 
 
     def printfilledtemplate(self, variabledictionary):
         nameSpace = variabledictionary
-        template = Template(self.ctemplate, searchList=[nameSpace])
-        return template.__str__()
+        atemplate = Template(self.atemplate, searchList=[nameSpace])
+        vtemplate = Template(self.vtemplate, searchList=[nameSpace])
+        return atemplate.__str__() + '\n\n\n----Video----\n\n\n' + vtemplate.__str__()
