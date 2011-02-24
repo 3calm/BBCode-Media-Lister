@@ -7,3 +7,5 @@ This application requires that you have the following libraries installed.
 mutagen
 cHeetah
 kaa
+
+To build your own templates, use the syntax from http://packages.python.org/Cheetah/

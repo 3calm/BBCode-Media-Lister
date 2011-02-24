@@ -82,10 +82,12 @@ class Lister():
             if album.title == track.md.album:
                 return album
         '''create the album'''
-        album = Album.Album(track.md.album, track.md.artist, track.md.userdate, self.format)
+        album = Album.Album(track.md.album, track.md.artist, track.md.userdate, self.format, track.md.thumbnail,
+                            track.md.genre)
         '''add te track to the albumtrack = Track.Track(fpath)'''
         self.albums.append(album)
         '''obtain the album'''
+        print album.md
         for album in self.albums:
             if album.title == track.md.album:
                 return album

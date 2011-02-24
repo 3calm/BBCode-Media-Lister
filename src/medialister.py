@@ -35,6 +35,10 @@ if options.write:
     out = lister.printtemplate()
     f.write(out)
     f.close
+    for album in lister.albums:
+        f = open(album.title + '.jpg', 'w')
+        f.write(str(album.image))
+        f.close
     print "\nThe output is in the file %s" % options.write
 else:
     print lister.printtemplate()

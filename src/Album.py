@@ -7,7 +7,7 @@ import logging
 class Album():
     '''represents an album'''
 
-    def __init__(self, title, artist, date, format):
+    def __init__(self, title, artist, date, format, image, genre):
         self.title = title
         self.artist = artist
         self.date = date
@@ -17,6 +17,8 @@ class Album():
         self.filesize = 0
         self.format = format
         self.sizeinm = self.calcfilesize()
+        self.image = image
+        self.genre = genre
 
     def __setattr__(self, title, value):
         '''title: the title of the album'''
