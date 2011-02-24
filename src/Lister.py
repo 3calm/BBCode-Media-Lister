@@ -87,7 +87,7 @@ class Lister():
         '''add te track to the albumtrack = Track.Track(fpath)'''
         self.albums.append(album)
         '''obtain the album'''
-        print album.md
+        
         for album in self.albums:
             if album.title == track.md.album:
                 return album
