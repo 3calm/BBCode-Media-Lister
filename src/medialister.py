@@ -11,6 +11,9 @@ parser.add_option("-d", "--debug", dest="debug", action="store_true", default=Fa
 parser.add_option("-f", "--filename", dest="write", metavar="FILE", help="write output to FILE")
 parser.add_option("-t", "--type", dest="type", metavar="TYPE", help="Specify a particular type to limit too.  mp3 for \
                                                                     example.")
+parser.add_option("-c", "--colour", dest="colour", default='orange', metavar="FILE", help="write output to FILE")
+parser.add_option("-g", "--images", dest="images", action="store_true", default=False, help="Generate images.")
+parser.add_option("-i", "--imdb", dest="imdb", action="store_true", default=False, help="IMDB Mode.")
 parser.add_option("-p", "--path", dest="path", metavar="PATH", help="Define the path to start from.")
 
 options, args = parser.parse_args()
@@ -32,7 +35,7 @@ ltest = lister.walktree(lister.fpath)
 
 if options.write:
     f = open(options.write, 'w')
-    out = lister.printtemplate()
+    out = lister.printtemplate(options.colour)
     f.write(out)
     f.close
     for album in lister.albums:
@@ -41,5 +44,5 @@ if options.write:
         f.close
     print "\nThe output is in the file %s" % options.write
 else:
-    print lister.printtemplate()
+    print lister.printtemplate(options.colour)
     pass

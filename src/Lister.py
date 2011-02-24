@@ -132,7 +132,7 @@ class Lister():
         return os.path.getsize(fpath)
 
 
-    def printtemplate(self):
+    def printtemplate(self, colour):
         from TemplateHandler import TemplateHandler
         t = TemplateHandler()
         t.loadtemplate()
@@ -140,6 +140,7 @@ class Lister():
         vd = {
             'albums' : self.albums,
             'videos' : self.videos,
+            'colour' : colour
             }
         logging.debug('! vd: %s' % str(vd))
         return t.printfilledtemplate(vd)
