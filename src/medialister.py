@@ -32,10 +32,10 @@ ltest = lister.walktree(lister.fpath)
 
 if options.write:
     f = open(options.write, 'w')
-    out = lister.printtemplate(lister.albums)
+    out = lister.printtemplate()
     f.write(out)
     f.close
     print "\nThe output is in the file %s" % options.write
 else:
-    print lister.printtemplate(lister.albums)
+    print lister.printtemplate()
     pass

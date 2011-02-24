@@ -16,6 +16,7 @@ class Album():
         self.length = 0
         self.filesize = 0
         self.format = format
+        self.sizeinm = self.calcfilesize()
 
     def __setattr__(self, title, value):
         '''title: the title of the album'''

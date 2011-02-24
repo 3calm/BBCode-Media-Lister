@@ -4,10 +4,7 @@ MediaLister
 
 import os, logging
 
-from mutagen.mp3 import MP3
-from mutagen.flac import FLAC
-
-import Track, Album
+import Track, Album, Video
 
 class Lister():
     '''Class for printing track lists'''
@@ -15,6 +12,7 @@ class Lister():
     def __init__(self, debug=False, type=None, path=None, outputfile=None):
         '''Initialize stuff we need'''
         self.albums = []
+        self.videos = []
         self.upaths = []
         self.fpath = None
         self.type = None
@@ -52,12 +50,16 @@ class Lister():
                     '''determine the file type'''
                     if os.path.isfile(fpath):
                         size = os.path.getsize(fpath)
-                        track = self.chooseprocessor(fpath, size)
-                        if track != False:
+                        mobj = self.chooseprocessor(fpath, size)
+                        if mobj.__class__ == Track.Track:
                             '''get the album'''
-                            album = self.getalbum(track)
+                            album = self.getalbum(mobj)
                             '''add the track to the album'''
-                            album.tracks.append(track)
+                            album.tracks.append(mobj)
+                        elif mobj.__class__ == Video.Video:
+                            self.videos.append(mobj)
+
+                            pass
                         else:
                             return False
 
@@ -108,13 +110,19 @@ class Lister():
         if os.path.splitext(fpath)[1].lower() == '.mp3':
             self.format = "MP3"
             track = Track.Track(fpath)
+            return track
         elif os.path.splitext(fpath)[1].lower() == '.flac':
             self.format = "FLAC"
             track = Track.Track(fpath)
+            return track
+        elif os.path.splitext(fpath)[1].lower() == '.avi':
+            self.format = "AVI"
+            video = Video.Video(fpath)
+            return video
         else:
             return False
 
-        return track
+
 
 
     def getsize(self, fpath):
@@ -122,13 +130,14 @@ class Lister():
         return os.path.getsize(fpath)
 
 
-    def printtemplate(self, albums):
+    def printtemplate(self):
         from TemplateHandler import TemplateHandler
         t = TemplateHandler()
         t.loadtemplate()
         
         vd = {
             'albums' : self.albums,
+            'videos' : self.videos,
             }
         logging.debug('! vd: %s' % str(vd))
         return t.printfilledtemplate(vd)
