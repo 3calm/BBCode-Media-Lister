@@ -37,5 +37,5 @@ if options.write:
     f.close
     print "\nThe output is in the file %s" % options.write
 else:
-    lister.printtemplate(lister.albums)
+    print lister.printtemplate(lister.albums)
     pass

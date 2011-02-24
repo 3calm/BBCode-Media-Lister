@@ -77,15 +77,15 @@ class Lister():
     def getalbum(self, track):
         '''obtain the album'''
         for album in self.albums:
-            if album.title == track.album:
+            if album.title == track.md.album:
                 return album
         '''create the album'''
-        album = Album.Album(track.album, track.artist, track.date, self.format)
-        '''add te track to the album'''
+        album = Album.Album(track.md.album, track.md.artist, track.md.userdate, self.format)
+        '''add te track to the albumtrack = Track.Track(fpath)'''
         self.albums.append(album)
         '''obtain the album'''
         for album in self.albums:
-            if album.title == track.album:
+            if album.title == track.md.album:
                 return album
         pass
          
@@ -107,14 +107,14 @@ class Lister():
         
         if os.path.splitext(fpath)[1].lower() == '.mp3':
             self.format = "MP3"
-            audioproc = MP3(fpath)
+            track = Track.Track(fpath)
         elif os.path.splitext(fpath)[1].lower() == '.flac':
             self.format = "FLAC"
-            audioproc = FLAC(fpath)
+            track = Track.Track(fpath)
         else:
             return False
-        otrack = Track.Track(audioproc, size)
-        return otrack
+
+        return track
 
 
     def getsize(self, fpath):
