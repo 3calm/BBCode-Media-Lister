@@ -111,8 +111,9 @@ class Album():
         for track in self.tracks:
             if track.artist != self.artist:
                 self.artist = "VA"
+                return self.artist
                 break
-        return self.artist
+        return self.artist[0]
 
     def tracksindicts(self):
         '''MAKE A LIST OF DICTS'''
