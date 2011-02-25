@@ -2,7 +2,8 @@
 MediaLister
 '''
 
-from mutagen.mp3 import MP3
+#from mutagen.mp3 import MP3
+from mp3 import MP3
 from mutagen.flac import FLAC
 import os
 
