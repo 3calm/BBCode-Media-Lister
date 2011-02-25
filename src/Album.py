@@ -107,6 +107,12 @@ class Album():
         self.filesize = tmpsize
         return "%.2f" %(self.filesize / (1024*1024.0))
 
+    def getartist(self):
+        for track in self.tracks:
+            if track.artist != self.artist:
+                self.artist = "VA"
+                break
+        return self.artist
 
     def tracksindicts(self):
         '''MAKE A LIST OF DICTS'''

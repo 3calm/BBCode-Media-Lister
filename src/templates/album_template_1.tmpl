@@ -1,7 +1,7 @@
 #for $album in $albums
 [title]
 $album.format
-Artist: $album.artist
+Artist: $album.getartist()
 Album: $album.title
 Date: ($album.date)
 [/title]
