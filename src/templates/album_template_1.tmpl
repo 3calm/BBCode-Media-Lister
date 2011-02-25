@@ -8,7 +8,7 @@ Date: ($album.date)
 Average Bitrate: $album.calcbitrate() kbps
 #end  if
 Length: $album.calclength()
-#if $album.calcfilesize() < 1000
+#if float($album.calcfilesize()) < 1000
 Size: $album.calcfilesize() MB
 #end if
 [/title]
