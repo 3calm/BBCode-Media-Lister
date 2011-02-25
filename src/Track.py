@@ -36,13 +36,13 @@ class Track(dict):
         self.length = int(self.audio.info.length)
         self.filesize = os.path.getsize(apath)
         try:
-            self.bitrate = self.audio.info.bitrate
+            self.bitrate = int(self.audio.info.bitrate/1000) # should be 1000, not 1024! (cheers raqqa)
         except:
             self.bitrate = 0
 
 
     def getkbps(self):
-        return int(self.bitrate/1024)
+        return self.bitrate
 
 
     def tracknumber(self, track):
