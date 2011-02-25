@@ -17,7 +17,8 @@ class Track(dict):
             self.audio = MP3(apath)
         try:
             '''MP3'''
-            self.track = self.audio.tags["TRCK"].text
+            #self.track = self.audio.tags["TRCK"].text
+            self.track = self.audio.tags["TRCK"]
             self.title = self.audio.tags["TIT2"][0]
             self.album = self.audio["TALB"].text
             self.artist = self.audio["TPE1"].text
@@ -52,13 +53,14 @@ class Track(dict):
                 return str(track.split("/")[0])
         except:
             pass
-        if len(track) < 2:
+        #if len(track) < 2:
+        if track < 10:
             track = str(0) + str(track)
         return track
 
 
     def __str__(self):
-        return "%s. %s"%(self.track, self.title)
+        return "%d. %s"%(self.track, self.title)
 
 
     def __repr__(self):
