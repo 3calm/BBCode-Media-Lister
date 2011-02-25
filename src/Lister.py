@@ -63,7 +63,7 @@ class Lister():
                             '''add the track to the album'''
                             album.tracks.append(mobj)
                         #elif mobj.__class__ == Video.Video and videoenabled:
-                        if videoenabled:
+                        elif videoenabled:
                             self.videos.append(mobj)
                             pass
                         else:
