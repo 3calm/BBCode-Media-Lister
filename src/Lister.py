@@ -66,7 +66,7 @@ class Lister():
                             self.videos.append(mobj)
                             pass
                         else:
-                            return False
+                            continue
 
     def prune(self, files):
         '''remove files that dont mat te specified type'''
