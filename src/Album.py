@@ -83,8 +83,8 @@ class Album():
         '''Calculate the bitrate of the album'''
         tmp = []
         for track in self.tracks:
-            if type(track.md.bitrate) != type(None):
-                tmp.append(track.md.bitrate)
+            if type(track.bitrate) != type(None):
+                tmp.append(track.bitrate)
             if len(tmp) != 0:
                 self.bitrate = str(int((sum(tmp) / len(tmp))))
         return self.bitrate

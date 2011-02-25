@@ -9,7 +9,7 @@ Date: ($album.date)
 [bar=$colour][center][title]Tracks on $album.title [/title][/center][/bar]
     [list=1]
     #for $track in $album.gettracks()
-        [*] $track.md.title
+        [*] $track.title
     #end for
     [/list]
 #end for

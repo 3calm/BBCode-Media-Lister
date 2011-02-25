@@ -2,25 +2,41 @@
 MediaLister
 '''
 
-import kaa.metadata
+from mutagen.mp3 import MP3
+from mutagen.flac import FLAC
 import os
 
 class Track(dict):
     """represents a track in an album"""
 
     def __init__(self, apath):
-        
-        try:
-            self.md = kaa.metadata.parse(apath)
-        except:
-            '''Couldnt parse file'''
-            print 'couldnt parse file'
 
-        self.track = self.tracknumber(self.md.trackno)
-        self.length = int(self.md.length)
+        if os.path.splitext(apath)[1].lower() == '.flac':
+            self.audio = FLAC(apath)
+        elif os.path.splitext(apath)[1].lower() == '.mp3':
+            self.audio = MP3(apath)
+        try:
+            '''MP3'''
+            self.track = self.audio.tags["TRCK"].text
+            self.title = self.audio.tags["TIT2"]
+            self.album = self.audio["TALB"].text
+            self.artist = self.audio["TPE1"].text
+            self.date = self.audio.tags["TDRC"]
+            self.genre = self.audio.tags["TCON"]
+        except:
+            '''FLAC'''
+            self.track = self.audio.tags["tracknumber"]
+            self.title = self.audio.tags["title"]
+            self.artist = self.audio.tags["artist"]
+            self.album = self.audio.tags["album"]
+            self.date = self.audio.tags["date"]
+            self.genre = self.audio.tags["genre"]
+        
+        self.track = self.tracknumber(self.track)
+        self.length = int(self.audio.info.length)
         self.filesize = os.path.getsize(apath)
         try:
-            self.bitrate = self.md.bitrate
+            self.bitrate = self.audio.info.bitrate
         except:
             self.bitrate = 0
 
@@ -42,7 +58,7 @@ class Track(dict):
 
 
     def __str__(self):
-        return "%s. %s"%(self.track, self.md.title)
+        return "%s. %s"%(self.track, self.title)
 
 
     def __repr__(self):
