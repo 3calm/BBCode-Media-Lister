@@ -4,12 +4,19 @@ $album.format
 Artist: $album.artist
 Album: $album.title
 Date: ($album.date)
+#if $album.calcbitrate() > 0
+Average Bitrate: $album.calcbitrate() kbps
+#end  if
+Length: $album.calclength()
+#if $album.calcfilesize() < 1000
+Size: $album.calcfilesize() MB
+#end if
 [/title]
-   [size=2]Average Bitrate: $album.calcbitrate() kbps - Length: $album.calclength() - Size: $album.calcfilesize() MB[/size]
 [bar=$colour][center][title]Tracks on $album.title [/title][/center][/bar]
     [list=1]
     #for $track in $album.gettracks()
-        [*] $track.title
+        [title][*] $track.title [/title]
     #end for
     [/list]
 #end for
+[center]Courtesy of 3Calm and raqqa[/center]
