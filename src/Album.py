@@ -100,10 +100,20 @@ class Album():
 
     def calcfilesize(self):
         '''Calculate the length of the album'''
+        tmpsize = 0
         for track in self.tracks:
-            self.filesize = self.filesize + track.filesize
-        return self.filesize / 1024 / 1024
+            tmpsize += track.filesize
+            #self.filesize = self.filesize + track.filesize
+        self.filesize = tmpsize
+        return "%.2f" %(self.filesize / (1024*1024.0))
 
+    def getartist(self):
+        for track in self.tracks:
+            if track.artist != self.artist:
+                self.artist = "VA"
+                return self.artist
+                break
+        return self.artist[0]
 
     def tracksindicts(self):
         '''MAKE A LIST OF DICTS'''

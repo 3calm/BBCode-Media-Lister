@@ -4,7 +4,12 @@ MediaLister
 
 import os, logging
 
-import Track, Album, Video
+import Track, Album
+
+try:
+    import Video
+except ImportError:
+    videoenabled = False
 
 class Lister():
     '''Class for printing track lists'''
@@ -51,19 +56,17 @@ class Lister():
                     '''determine the file type'''
                     if os.path.isfile(fpath):
                         size = os.path.getsize(fpath)
-                        mobj = self.chooseprocessor(fpath, size)
-                        if mobj.__class__ == Track.Track:
+                        mobj, mobjtype = self.chooseprocessor(fpath, size)
+                        if mobjtype == "FLAC" or mobjtype == "MP3":
                             '''get the album'''
                             album = self.getalbum(mobj)
                             '''add the track to the album'''
                             album.tracks.append(mobj)
-                        elif mobj.__class__ == Video.Video:
+                        elif mobjtype == "AVI":
                             self.videos.append(mobj)
-
                             pass
                         else:
-                            return False
-
+                            continue
 
     def prune(self, files):
         '''remove files that dont mat te specified type'''
@@ -106,32 +109,27 @@ class Lister():
         except:
             return False
 
-
     def chooseprocessor(self,fpath, size):
         '''choose the class to use'''
         
         if os.path.splitext(fpath)[1].lower() == '.mp3':
             self.format = "MP3"
             track = Track.Track(fpath)
-            return track
+            return track, self.format
         elif os.path.splitext(fpath)[1].lower() == '.flac':
             self.format = "FLAC"
             track = Track.Track(fpath)
-            return track
-        elif os.path.splitext(fpath)[1].lower() == '.avi':
+            return track, self.format
+        elif os.path.splitext(fpath)[1].lower() == '.avi' and videoenabled:
             self.format = "AVI"
             video = Video.Video(fpath)
-            return video
+            return video, self.format
         else:
-            return False
-
-
-
+            return False, False
 
     def getsize(self, fpath):
         '''get file size'''
         return os.path.getsize(fpath)
-
 
     def printtemplate(self, colour, afile, vfile):
         from TemplateHandler import TemplateHandler

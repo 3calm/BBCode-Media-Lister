@@ -17,12 +17,13 @@ class Track(dict):
             self.audio = MP3(apath)
         try:
             '''MP3'''
-            self.track = self.audio.tags["TRCK"].text
+#            self.track = self.audio.tags["TRCK"].text[0]
+            self.track = self.audio.tags["TRCK"][0]
             self.title = self.audio.tags["TIT2"][0]
-            self.album = self.audio["TALB"].text
-            self.artist = self.audio["TPE1"].text
-            self.date = self.audio.tags["TDRC"]
-            self.genre = self.audio.tags["TCON"]
+            self.album = self.audio["TALB"][0]
+            self.artist = self.audio["TPE1"][0]
+            self.date = self.audio.tags["TDRC"][0]
+            self.genre = self.audio.tags["TCON"][0]
         except:
             '''FLAC'''
             self.track = self.audio.tags["tracknumber"][0]
@@ -52,13 +53,14 @@ class Track(dict):
                 return str(track.split("/")[0])
         except:
             pass
-        if len(track) < 2:
+        #if len(track) < 2:
+        if track < 10:
             track = str(0) + str(track)
         return track
 
 
     def __str__(self):
-        return "%s. %s"%(self.track, self.title)
+        return "%d. %s"%(self.track, self.title)
 
 
     def __repr__(self):
