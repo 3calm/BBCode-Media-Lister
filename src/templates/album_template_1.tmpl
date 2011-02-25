@@ -11,7 +11,7 @@ Length: $album.calclength()
 #if float($album.calcfilesize()) < 1000
 Size: $album.calcfilesize() MB
 #end if
-#if $album.getpreset() != ""
+#if $album.getpreset() != "" and $album.getpreset() != None:
 Preset: $album.getpreset()
 #end if
 [/title]
