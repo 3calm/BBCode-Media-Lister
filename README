@@ -5,6 +5,7 @@ generate an informative online post in the most widely used forum mark-up,promot
 This application requires that you have the following libraries installed.
 
 Cheetah
-kaa
+Mutagen
 
-To build your own templates, use the syntax from http://packages.python.org/Cheetah/
+To build your own templates, use the syntax from http://packages.python.org/Cheetah/ and put them in the templates
+directory.  Use the -x and -v options to specify the template file for audio (-x) and/or video (-v).
