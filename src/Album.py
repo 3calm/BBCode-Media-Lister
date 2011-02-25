@@ -3,6 +3,7 @@ MediaLister
 '''
 
 import logging
+import datetime
 
 class Album():
     '''represents an album'''
@@ -128,14 +129,11 @@ class Album():
         return sorted(self.tracks, key=lambda track: track.track)
 
     def GetInHMS(self,seconds):
-        'convert secs to mins and secs'
-        seconds = int(seconds)
-        hours = seconds / 3600
-        bminutes = seconds / 60
-        seconds -= 3600*hours
-        minutes = seconds / 60
-        seconds -= 60*minutes
-        return '%02s:%02s' % (bminutes, seconds)
+        'convert secs to hours, mins and secs'
+        playtime = "%s" % (datetime.timedelta(seconds=seconds))
+        if playtime[0:1] == "0":
+            playtime = playtime[2:]
+        return "%s" % playtime
 
 
     def __str__(self):
