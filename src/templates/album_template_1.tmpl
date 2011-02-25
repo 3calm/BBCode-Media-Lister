@@ -11,6 +11,9 @@ Length: $album.calclength()
 #if float($album.calcfilesize()) < 1000
 Size: $album.calcfilesize() MB
 #end if
+#if $album.getpreset() != ""
+Preset: $album.getpreset()
+#end if
 [/title]
 [bar=$colour][center][title]Tracks on $album.title [/title][/center][/bar]
     [list=1]

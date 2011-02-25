@@ -123,6 +123,8 @@ class Album():
             sortedtracks = sorted(tmp, key=lambda k: k['track'])
         return sortedtracks
 
+    def getpreset(self):
+        return self.tracks[0].preset
 
     def gettracks(self):
         return sorted(self.tracks, key=lambda track: track.track)

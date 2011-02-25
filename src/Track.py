@@ -24,6 +24,10 @@ class Track(dict):
             self.artist = self.audio["TPE1"][0]
             self.date = self.audio.tags["TDRC"][0]
             self.genre = self.audio.tags["TCON"][0]
+            try:
+                self.preset = self.audio.info.preset
+            except:
+                self.preset = ""
         except:
             '''FLAC'''
             self.track = self.audio.tags["tracknumber"][0]
