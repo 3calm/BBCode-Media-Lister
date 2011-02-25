@@ -17,7 +17,6 @@ class Track(dict):
             self.audio = MP3(apath)
         try:
             '''MP3'''
-#            self.track = self.audio.tags["TRCK"].text[0]
             self.track = self.audio.tags["TRCK"][0]
             self.title = self.audio.tags["TIT2"][0]
             self.album = self.audio["TALB"][0]
