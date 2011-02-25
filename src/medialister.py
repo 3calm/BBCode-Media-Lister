@@ -8,6 +8,7 @@ import os, sys
 use = "Usage: %prog [options]"
 parser = OptionParser(usage = use)
 parser.add_option("-d", "--debug", dest="debug", action="store_true", default=False, help="Activate debug mode.")
+parser.add_option("-b", "--big", dest="big", action="store_true", default=False, help="Big text in track listing.")
 parser.add_option("-g", "--images", dest="images", action="store_true", default=False, help="Generate images.")
 parser.add_option("-i", "--imdb", dest="imdb", action="store_true", default=False, help="IMDB Mode.")
 parser.add_option("-f", "--filename", dest="write", metavar="FILE", help="write output to FILE")
@@ -34,7 +35,8 @@ if options.path:
         sys.exit('The path %s does not exist' % options.path)
 
 print "\n3Calm's Media Lister\n=======\n"
-lister = Lister.Lister(debug=options.debug, type=options.type, path=options.path, outputfile=options.write)
+lister = Lister.Lister(debug=options.debug, type=options.type, path=options.path, outputfile=options.write,
+                       big=options.big)
 ltest = lister.walktree(lister.fpath)
 
 if options.write:

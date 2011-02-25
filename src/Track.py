@@ -18,19 +18,19 @@ class Track(dict):
         try:
             '''MP3'''
             self.track = self.audio.tags["TRCK"].text
-            self.title = self.audio.tags["TIT2"]
+            self.title = self.audio.tags["TIT2"][0]
             self.album = self.audio["TALB"].text
             self.artist = self.audio["TPE1"].text
             self.date = self.audio.tags["TDRC"]
             self.genre = self.audio.tags["TCON"]
         except:
             '''FLAC'''
-            self.track = self.audio.tags["tracknumber"]
-            self.title = self.audio.tags["title"]
-            self.artist = self.audio.tags["artist"]
-            self.album = self.audio.tags["album"]
-            self.date = self.audio.tags["date"]
-            self.genre = self.audio.tags["genre"]
+            self.track = self.audio.tags["tracknumber"][0]
+            self.title = self.audio.tags["title"][0]
+            self.artist = self.audio.tags["artist"][0]
+            self.album = self.audio.tags["album"][0]
+            self.date = self.audio.tags["date"][0]
+            self.genre = self.audio.tags["genre"][0]
         
         self.track = self.tracknumber(self.track)
         self.length = int(self.audio.info.length)

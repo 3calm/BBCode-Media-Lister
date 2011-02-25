@@ -9,7 +9,7 @@ import Track, Album, Video
 class Lister():
     '''Class for printing track lists'''
 
-    def __init__(self, debug=False, type=None, path=None, outputfile=None):
+    def __init__(self, debug=False, type=None, path=None, outputfile=None, big=None):
         '''Initialize stuff we need'''
         self.albums = []
         self.videos = []
@@ -18,6 +18,7 @@ class Lister():
         self.type = None
         self.debug = debug
         self.opath = outputfile
+        self.big = big
         self.format = ""
         self.types = {
             'mp3' : '.mp3',
