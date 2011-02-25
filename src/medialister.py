@@ -18,7 +18,7 @@ parser.add_option("-v", "--vtemplate", dest="vtemplate", metavar="VTEMPLATE", he
                                                                     for video file output.", default="video_template_1.tmpl")
 parser.add_option("-t", "--type", dest="type", metavar="TYPE", help="Specify a particular type to limit too.  mp3 for \
                                                                     example.")
-parser.add_option("-c", "--colour", dest="colour", default='orange', metavar="COLOUR", help="Specify a colour")
+parser.add_option("-c", "--colour", dest="colour", default='pink', metavar="COLOUR", help="Specify a colour")
 parser.add_option("-p", "--path", dest="path", metavar="PATH", help="Define the path to start from.")
 
 options, args = parser.parse_args()
