@@ -57,7 +57,7 @@ class Track(dict):
         '''Flip the track to int for sorting'''
         try:
             if track.find("/") != -1:
-                return str(track.split("/")[0])
+                return int(track.split("/")[0])
         except:
             pass
         #if len(track) < 2:
